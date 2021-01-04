@@ -141,8 +141,8 @@ class UserDAO:
 def signUp(uc):
     print("Sign up page")
     user_id=input("Your ID: ")
-    if uc.SelectUser(user_id) is no user_id:
-        print("This User ID is already taken")
+    if uc.SelectUser(user_id) is not None user_id:
+        print("This User ID is  already taken")
         return
 
     user_name=input("Your name: ")
