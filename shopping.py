@@ -63,6 +63,17 @@ class UserController:
 
 
 # model
+# todo  
+
+'''
+join 
+
+SELECT ut.user_id, ot.order_id, item_name, order_list_num
+FROM user_tabl ut
+JOIN Order_tbl ot ON ut.user_id = ot.user_id
+JOIN Order_list_tbl olt ON ot.order_id = olt.order_id
+JOIN item_tbl it ON olt.item_id = it.item_id;
+'''
 
 # User  테이블의 데이터를 조회, 갱신, 저장, 삭제 등의 메소드를 포함. (User Data Access Object)
 class UserDAO:
