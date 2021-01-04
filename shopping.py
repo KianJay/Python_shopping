@@ -4,59 +4,54 @@
 # In[1]:
 
 
-# Controller
+# Controller 
 import pymysql
 
-
-def dbconnect():  # 패스워드는 꼭 자기 DB 패스워드로! db 이름도 잘 확인할 것!
-    conn = pymysql.connect(host='127.0.0.1', user='root',
-                           password='12341234', db='shopping', charset='utf8')
-    return conn
-
-
-class UserController:
-    def __init__(self):
+def dbconnect() : # 패스워드는 꼭 자기 DB 패스워드로! db 이름도 잘 확인할 것!
+    conn = pymysql.connect(host = '127.0.0.1', user = 'root', password = '12341234', db = 'shopping', charset = 'utf8')
+    return conn  
+    
+class UserController : 
+    def __init__(self) :
         self.conn = dbconnect()
         self.userDAO = UserDAO(self.conn)
-
+        
 #  Users by user_id
     def InsertUser(self, user_id, user_name, sign_up_date):
-        row = self.userDAO.InsertUser(
-            user_id, user_name, sign_up_date, user_check)
+        row = self.userDAO.InsertUser(user_id, user_name, sign_up_date, user_check)
         self.conn.commit()
-        return row;
-
-    def SelectUser(self, user_id):
+        return row
+    
+    def SelectUser(self, user_id) :
             row = self.userDAO.SelectUser(user_id)
-            return row;
-
+            return row
+        
 #  Items by item_id
-    def InsertItem(self, item_id, item_price, item_name):
+    def InsertItem(self,item_id, item_price, item_name):
         row = self.userDAO.InsertItem(item_id, item_pric, item_name)
-        self.conn.commit()}
-        return row;
-
-    def SelectItemAll(self):
+        self.conn.commit()
+        return row 
+    
+    def SelectItemAll(self) :
         row = self.userDAO.SelectItemAll()
-        return row;
-
+        return row
+    
 #  order by order_id
     def InsertOrder(self, order_id):
-        row = self.userDAO.InsertItem(
-            item_id, item_pric, item_stock, item_name)
+        row = self.userDAO.InsertItem(item_id, item_pric, item_stock, item_name)
         self.conn.commit()
-        return row;
-
-    def SelectItemAll(self, item_id):
-        row=self.userDAO.SelectItemAll()
-        return row;
-
+        return row 
+    
+    def SelectItemAll(self, item_id) :
+        row = self.userDAO.SelectItemAll()
+        return row
+    
 #  order_list
 
-    def SelectOrderList(self, item_id, order_id):
-        row=self.userDAO.SelectOrderList()
-        return row;
-
+    def SelectOrderList(self, item_id, order_id) :
+        row = self.userDAO.SelectOrderList()
+        return row    
+    
 
 
 # In[2]:
@@ -134,46 +129,44 @@ class UserDAO:
 # In[3]:
 
 
-# View
-# to-do
-
+# View     
+#to-do
 
 def signUp(uc):
     print("Sign up page")
-    user_id=input("Your ID: ")
-    if uc.SelectUser(user_id) is not None:
-        print("This User ID is  already taken")
+    user_id = input("Your ID: ")
+    if uc.SelectUser(user_id) is None:
+        print("This User ID is already taken")
         return
-
-    user_name=input("Your name: ")
+        
+    user_name = input("Your name: ")
     uc.InsertUser(user_name)
     print("Successfully signed up.")
-    row=uc.SelectUser(user_id)
+    row = uc.SelectUser(user_id)
     printUser(row)
 
 def main():
-    uc=UserController()
-
-    while True:
-        print("""<Welcome to Encore Shopping mall.>
+    uc = UserController()
+    
+    while True :
+        print("""<Welcome to Encore Shopping mall.> 
                pick an option. """)
-        choice=input("""
+        choice = input("""
                           1. Sign Up
                           2. Shopping
                           3. Shopping Cart
-                          4. Admin
+                          4. Admin 
                           5. Exit
                           >>> Please, provide us with number : """)
-
-        if choice == "1": signUp(uc)
-        elif choice == "2": shopping(uc)
-        elif choice == "3": orderList(uc)
-        elif choice == "4": admin(uc)
-        elif choice == "5": break
-        else: print("Wrong number Try agian.")
+        
+        if choice == "1" : signUp(uc)
+        elif choice == "2" : shopping(uc)
+        elif choice == "3" : orderList(uc)
+        elif choice == "4" : admin(uc)
+        elif choice == "5" : break
+        else : print("Wrong number Try agian.")
     uc.conn.close()
 
-if __name__ == '__main__': main()
-
+if __name__=='__main__': main()
 
 # In[ ]:
